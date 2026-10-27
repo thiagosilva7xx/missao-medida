@@ -235,6 +235,17 @@ table.cmp tr.lead td{color:var(--good);font-weight:700;font-size:1.15rem}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes boom{to{transform:scale(1.8);opacity:0}}
 
+/* novas maldições */
+.work.clip{overflow:hidden}
+.darkness{position:absolute;inset:0;border-radius:18px;pointer-events:none;z-index:15;--x:50%;--y:40%;background:radial-gradient(circle 100px at var(--x) var(--y),rgba(2,5,15,0) 0,rgba(2,5,15,0) 55%,rgba(2,5,15,.97) 100%);animation:flicker 3s steps(1) infinite}
+@keyframes flicker{0%,100%{opacity:1}47%{opacity:.93}48%{opacity:1}74%{opacity:.96}}
+.work.shake{animation:turb .9s ease}
+@keyframes turb{0%,100%{transform:none}15%{transform:translate(-7px,3px) rotate(-1.2deg)}30%{transform:translate(8px,-4px) rotate(1deg)}45%{transform:translate(-6px,-2px) rotate(-.8deg)}60%{transform:translate(5px,4px) rotate(.6deg)}80%{transform:translate(-3px,0) rotate(-.3deg)}}
+.dust{position:absolute;left:0;top:0;border-radius:18px;pointer-events:none;z-index:14}
+.zorg{position:absolute;bottom:-4px;width:86px;height:96px;z-index:22;pointer-events:none;animation:zpop 1.9s ease forwards}
+.zorg svg{width:100%;height:100%;display:block}
+.zorg span{position:absolute;top:-6px;left:70px;background:#eaf2ff;color:#0c1a3e;font-weight:900;padding:2px 8px;border-radius:10px;font-size:.9rem;white-space:nowrap}
+@keyframes zpop{0%{transform:translateY(110%)}22%{transform:translateY(0) rotate(-6deg)}40%{transform:translateY(0) rotate(6deg)}60%{transform:translateY(0) rotate(-4deg)}80%{transform:translateY(0)}100%{transform:translateY(115%)}}
 /* tela de falha: alien */
 #alien{position:fixed;inset:0;z-index:60;display:grid;place-items:center;background:radial-gradient(900px 600px at 50% 35%,#163a5e,#030714 70%);overflow:hidden}
 .abox{position:relative;text-align:center;padding:10px 20px;max-width:640px}
@@ -267,6 +278,7 @@ table.cmp tr.lead td{color:var(--good);font-weight:700;font-size:1.15rem}
     <symbol id="sv-termo" viewBox="0 0 48 48"><rect x="19" y="4" width="10" height="30" rx="5" fill="#eaf2ff" stroke="#9fb3d9" stroke-width="1.5"/><rect x="22" y="14" width="4" height="22" fill="#ff6b7a"/><circle cx="24" cy="38" r="7" fill="#ff6b7a" stroke="#eaf2ff" stroke-width="2"/><path d="M31 10h5M31 16h3M31 22h5M31 28h3" stroke="#9fb3d9" stroke-width="1.5"/></symbol>
     <symbol id="sv-crono" viewBox="0 0 48 48"><circle cx="24" cy="27" r="16" fill="#eaf2ff" stroke="#4dd8e8" stroke-width="3"/><rect x="20" y="4" width="8" height="6" rx="1.5" fill="#4dd8e8"/><path d="M24 27 L24 16 M24 27 L31 31" stroke="#0c1a3e" stroke-width="2.5" stroke-linecap="round"/></symbol>
     <symbol id="sv-copo" viewBox="0 0 48 48"><path d="M10 8 H38 L34 42 H14 Z" fill="rgba(77,216,232,.25)" stroke="#eaf2ff" stroke-width="2" stroke-linejoin="round"/><path d="M12.5 26 H35.5 L34 42 H14 Z" fill="#4dd8e8"/><path d="M30 14h5M31 20h3M31 26h4M31 32h3" stroke="#eaf2ff" stroke-width="1.5"/></symbol>
+    <symbol id="sv-zorg" viewBox="50 0 200 270"><path d="M112 70 Q92 30 80 20" stroke="#7fd65a" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="78" cy="18" r="10" fill="#ff6b7a"/><path d="M188 70 Q208 30 220 20" stroke="#7fd65a" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="222" cy="18" r="10" fill="#ff6b7a"/><path d="M150 60 C222 60 250 120 236 170 C222 222 186 258 150 262 C114 258 78 222 64 170 C50 120 78 60 150 60 Z" fill="#8ee06a" stroke="#3f7d1c" stroke-width="5"/><path d="M92 136 Q114 118 138 138" fill="none" stroke="#0c1a3e" stroke-width="10" stroke-linecap="round"/><path d="M162 138 Q186 118 208 136" fill="none" stroke="#0c1a3e" stroke-width="10" stroke-linecap="round"/><path d="M104 180 Q150 190 196 180 Q192 226 150 230 Q108 226 104 180 Z" fill="#3a0a24" stroke="#0c1a3e" stroke-width="4"/><path d="M116 183 L124 198 L132 185 Z M168 185 L176 198 L184 183 Z" fill="#fff"/></symbol>
     <!-- planetas dos módulos -->
     <symbol id="sv-pl1" viewBox="0 0 100 100"><circle cx="50" cy="50" r="38" fill="#ff8a5c"/><path d="M14 44 Q50 32 86 46 M18 64 Q50 56 84 66" stroke="#ffb38f" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M42 20 h16 v18 l12 22 a6 6 0 0 1 -5 9 h-30 a6 6 0 0 1 -5 -9 l12 -22 z" fill="#eaf2ff" stroke="#0c1a3e" stroke-width="3" opacity=".95"/><path d="M33 58 h34 l4 7 a4 4 0 0 1 -3.5 5 h-35 a4 4 0 0 1 -3.5 -5 z" fill="#5ce1a0"/></symbol>
     <symbol id="sv-pl2" viewBox="0 0 100 100"><circle cx="50" cy="50" r="38" fill="#3fb8d0"/><path d="M20 30 q14 8 8 22 q-4 12 10 18 M64 18 q-6 14 8 20 q12 6 6 22" stroke="#7fe3f0" stroke-width="5" fill="none"/><rect x="18" y="44" width="64" height="14" rx="3" fill="#ffd166" stroke="#0c1a3e" stroke-width="3"/><path d="M26 44v7M34 44v5M42 44v7M50 44v5M58 44v7M66 44v5M74 44v7" stroke="#0c1a3e" stroke-width="2.5"/></symbol>
@@ -316,7 +328,7 @@ table.cmp tr.lead td{color:var(--good);font-weight:700;font-size:1.15rem}
         </div>
         <ul class="howto">
           <li><b>Missão Completa:</b> passa pelos 4 módulos da nave, 5 tarefas em cada.</li>
-          <li><b>Missão Final:</b> tarefas de todos os módulos misturadas, com 3 tanques de <b>oxigênio</b>. Cada erro gasta um. Cuidado com a <b>tempestade solar</b> (passe o mouse para ver a tarefa) e os <b>asteroides</b> (clique para destruir)!</li>
+          <li><b>Missão Final:</b> tarefas de todos os módulos misturadas, com 3 tanques de <b>oxigênio</b>. Cada erro gasta um. A cada nível as tarefas ficam mais difíceis e aparecem <b>maldições</b>: tempestade solar, asteroides, apagão, turbulência, poeira no visor, controles invertidos e o alien Zorg bagunçando tudo!</li>
           <li>Aqui você não escolhe alternativas: <b>arraste, despeje, gire e desenhe</b> até ficar certo e clique em <b>Confirmar</b>.</li>
           <li>Responder rápido e acertar em sequência dá pontos extras.</li>
         </ul>
@@ -595,12 +607,12 @@ function musicStop(){
   }catch(e){}
 }
 // risada do alien
-function alienLaugh(){
+function alienLaugh(n){
   if(muted) return;
   try{
     const c=getCtx(); if(!c) return;
     const t0=c.currentTime+0.05;
-    for(let i=0;i<8;i++){
+    for(let i=0;i<(n||8);i++){
       const t=t0+i*0.18, base=300+i*30+(i%2?60:0);
       const o=c.createOscillator(), lfo=c.createOscillator(), lg=c.createGain(), g=c.createGain(), f=c.createBiquadFilter();
       o.type='square'; o.frequency.setValueAtTime(base,t); o.frequency.exponentialRampToValueAtTime(base*1.7,t+0.08); o.frequency.exponentialRampToValueAtTime(base*0.8,t+0.16);
@@ -732,6 +744,7 @@ function wDnD(work,spec){
       toks.forEach(t=>{ const z=zoneOf(t); if(z==='tray'&&!t._spec.zone) return; t.classList.add(z===(t._spec.zone||'tray')?'ok':'no'); });
     },
     solve(){ toks.forEach(t=>place(t,t._spec.zone||'tray')); },
+    sabotage(){ if(locked) return false; const pl=toks.filter(t=>zoneOf(t)!=='tray'); if(!pl.length) return false; const t=pick(pl); tray.appendChild(t); t.classList.add('sel'); setTimeout(()=>t.classList.remove('sel'),900); return true; },
     wrong(){ return toks.filter(t=>zoneOf(t)!==(t._spec.zone||'tray')).map(t=>t._spec); },
     destroy(){}
   };
@@ -740,7 +753,7 @@ function wDnD(work,spec){
 /* ---------- 2. Mostradores numéricos ---------- */
 function wDials(work,spec){
   const box=document.createElement('div'); box.className='dials';
-  const vals={}, inputs={}, btns=[];
+  const vals={}, inputs={}, btns=[], fl=[]; let inv=1;
   spec.fields.forEach((f,i)=>{
     if(f.sep){ const s=document.createElement('div'); s.className='dsep'; s.textContent=f.sep; box.appendChild(s); return; }
     vals[f.key]=f.value||0;
@@ -749,7 +762,7 @@ function wDials(work,spec){
     const [up,dn]=d.querySelectorAll('button'), inp=d.querySelector('input');
     const show=()=>{ inp.value=String(vals[f.key]); };
     const step=k=>{
-      let v=vals[f.key]+k;
+      let v=vals[f.key]+k*inv;
       if(v>f.max) v=f.wrap?f.min:f.max; if(v<f.min) v=f.wrap?f.max:f.min;
       vals[f.key]=v; show(); sfx.tick();
     };
@@ -757,7 +770,7 @@ function wDials(work,spec){
     inp.addEventListener('input',()=>{ const v=parseInt(inp.value.replace(/[^0-9-]/g,''),10); if(!isNaN(v)) vals[f.key]=Math.max(f.min,Math.min(f.max,v)); });
     inp.addEventListener('blur',show);
     inp.addEventListener('keydown',ev=>{ if(ev.key==='ArrowUp'){ev.preventDefault();step(f.step||1);} if(ev.key==='ArrowDown'){ev.preventDefault();step(-(f.step||1));} });
-    show(); inputs[f.key]={inp,show}; btns.push(up,dn,inp);
+    show(); inputs[f.key]={inp,show}; btns.push(up,dn,inp); fl.push(f);
     box.appendChild(d);
   });
   work.appendChild(box);
@@ -768,6 +781,8 @@ function wDials(work,spec){
     lock(ok){ box.classList.add('locked', ok?'okd':'nod'); btns.forEach(b=>b.disabled=true); },
     solve(){ Object.keys(spec.answer).forEach(k=>{ vals[k]=spec.answer[k]; inputs[k].show(); }); },
     set(k,v){ vals[k]=v; inputs[k].show(); },
+    invert(){ inv=-1; },
+    sabotage(){ const f=pick(fl); let v=vals[f.key]+pick([-1,1])*rnd(1,3); if(f.wrap){ const r=f.max-f.min+1; v=((v-f.min)%r+r)%r+f.min; } else v=Math.max(f.min,Math.min(f.max,v)); if(v===vals[f.key]) v=Math.min(f.max,vals[f.key]+1)===vals[f.key]?vals[f.key]-1:vals[f.key]+1; vals[f.key]=v; inputs[f.key].show(); inputs[f.key].inp.animate([{background:'#7a2236'},{background:'#050d24'}],{duration:900}); return true; },
     destroy(){}
   };
 }
@@ -791,7 +806,7 @@ function wFill(work,spec){
   S('line',{x1:x0,y1:30,x2:x0,y2:190,stroke:'#ffd166','stroke-dasharray':'5 5','stroke-width':2},svg);
   const g=S('g',{},svg);
   const cnt=S('text',{x:x0,y:200,fill:'#9fb3d9','font-size':22,'font-weight':700},svg);
-  let n=0, locked=false;
+  let n=0, locked=false, inv=1;
   function draw(){
     g.innerHTML='';
     for(let i=0;i<n;i++){
@@ -806,9 +821,10 @@ function wFill(work,spec){
   tools.innerHTML='<button type="button" class="btn sec">− Tirar</button><button type="button" class="btn cy">+ Colocar '+esc(spec.blockLabel)+'</button>';
   work.appendChild(tools);
   const [minus,plus]=tools.querySelectorAll('button');
-  plus.addEventListener('click',()=>{ if(locked) return; if(n<maxN){ n++; draw(); sfx.drop(); } });
-  minus.addEventListener('click',()=>{ if(locked) return; if(n>0){ n--; draw(); sfx.tick(); } });
-  svg.addEventListener('click',()=>{ if(locked) return; if(n<maxN){ n++; draw(); sfx.drop(); } });
+  const add=k=>{ if(locked) return; k*=inv; if(k>0&&n<maxN){ n++; draw(); sfx.drop(); } else if(k<0&&n>0){ n--; draw(); sfx.tick(); } };
+  plus.addEventListener('click',()=>add(1));
+  minus.addEventListener('click',()=>add(-1));
+  svg.addEventListener('click',()=>add(1));
   draw();
   return {
     _spec:spec,
@@ -817,6 +833,8 @@ function wFill(work,spec){
     lock(){ locked=true; plus.disabled=minus.disabled=true; },
     solve(){ n=Math.round(L/b); draw(); },
     value(){ return n; },
+    invert(){ inv=-1; },
+    sabotage(){ if(locked) return false; if(n>0&&Math.random()<.6) n--; else if(n<maxN) n++; draw(); return true; },
     destroy(){}
   };
 }
@@ -854,7 +872,7 @@ function wCup(work,spec){
     }
   });
   const tgtLine=S('line',{x1:cx-tw/2,x2:cx+tw/2,y1:-10,y2:-10,stroke:'#5ce1a0','stroke-width':3,'stroke-dasharray':'8 6',opacity:0},svg);
-  let ml=0, locked=false, raf=null, dir=0, last=0, downAt=0, startMl=0;
+  let ml=0, locked=false, raf=null, dir=0, last=0, downAt=0, startMl=0, inv=1, held=0;
   function draw(){ const y=yOf(ml); fill.setAttribute('y',y); fill.setAttribute('height',bot-y); stream.setAttribute('height',dir>0?y:0); }
   function loop(t){
     if(!dir){ raf=null; return; }
@@ -869,15 +887,15 @@ function wCup(work,spec){
   function bind(btn,d){
     btn.addEventListener('pointerdown',ev=>{
       if(locked) return; ev.preventDefault(); try{ btn.setPointerCapture(ev.pointerId); }catch(e){}
-      dir=d; downAt=performance.now(); startMl=ml; last=downAt; if(!raf) raf=requestAnimationFrame(loop); draw();
+      held=d; dir=d*inv; downAt=performance.now(); startMl=ml; last=downAt; if(!raf) raf=requestAnimationFrame(loop); draw();
     });
     const up=()=>{
-      if(dir!==d) return;
-      dir=0; draw();
-      if(performance.now()-downAt<200 && Math.abs(ml-startMl)<5){ ml=Math.max(0,Math.min(520,startMl+d*5)); draw(); } // toque rápido = 5 mL
+      if(held!==d) return;
+      held=0; const dd=dir; dir=0; draw();
+      if(performance.now()-downAt<200 && Math.abs(ml-startMl)<5){ ml=Math.max(0,Math.min(520,startMl+dd*5)); draw(); } // toque rápido = 5 mL
     };
     btn.addEventListener('pointerup',up); btn.addEventListener('pointercancel',up); btn.addEventListener('lostpointercapture',up);
-    btn.addEventListener('keydown',ev=>{ if(locked) return; if(ev.key==='Enter'||ev.key===' '){ ev.preventDefault(); ml=Math.max(0,Math.min(520,ml+d*5)); draw(); } });
+    btn.addEventListener('keydown',ev=>{ if(locked) return; if(ev.key==='Enter'||ev.key===' '){ ev.preventDefault(); ml=Math.max(0,Math.min(520,ml+d*inv*5)); draw(); } });
   }
   bind(inB,1); bind(outB,-1);
   draw();
@@ -888,6 +906,8 @@ function wCup(work,spec){
     lock(){ locked=true; dir=0; inB.disabled=outB.disabled=true; const y=yOf(spec.targetMl); tgtLine.setAttribute('y1',y); tgtLine.setAttribute('y2',y); tgtLine.setAttribute('opacity',1); },
     solve(){ ml=spec.targetMl; draw(); },
     value(){ return ml; },
+    invert(){ inv=-1; },
+    sabotage(){ if(locked||dir) return false; ml=Math.max(0,Math.min(500,ml+(ml>60&&Math.random()<.5?-1:1)*rnd(30,50))); draw(); return true; },
     destroy(){ dir=0; if(raf) cancelAnimationFrame(raf); }
   };
 }
@@ -913,11 +933,11 @@ function wComma(work,spec){
     '<div class="ladnote">Escada das unidades: cada degrau para a direita multiplica por 10; para a esquerda, divide por 10.<br><b style="color:var(--acc2)">'+spec.from+'</b> = unidade de partida · <b style="color:var(--cyan)">'+spec.to+'</b> = unidade de chegada</div>';
   work.appendChild(box);
   const num=box.querySelector('.cm-num'), [lb,rb]=box.querySelectorAll('.cmbtns button');
-  let s=0, locked=false;
+  let s=0, locked=false, inv=1;
   function draw(){
     num.innerHTML=numParts(spec.digits,spec.exp+s).map(p=>'<span class="'+(p.c?'c':(p.z?'d z':'d'))+'">'+p.ch+'</span>').join('')+'<span class="u">'+spec.to+'</span>';
   }
-  const mv=k=>{ if(locked) return; const ns=s+k; if(ns<-6||ns>6) return; s=ns; draw(); sfx.tick(); };
+  const mv=k=>{ if(locked) return; const ns=s+k*inv; if(ns<-6||ns>6) return; s=ns; draw(); sfx.tick(); };
   lb.addEventListener('click',()=>mv(-1)); rb.addEventListener('click',()=>mv(1));
   box.tabIndex=0; box.addEventListener('keydown',ev=>{ if(ev.key==='ArrowLeft'){ev.preventDefault();mv(-1);} if(ev.key==='ArrowRight'){ev.preventDefault();mv(1);} });
   draw();
@@ -928,6 +948,8 @@ function wComma(work,spec){
     lock(){ locked=true; lb.disabled=rb.disabled=true; },
     solve(){ s=diff; draw(); },
     value(){ return numStr(spec.digits,spec.exp+s); },
+    invert(){ inv=-1; },
+    sabotage(){ if(locked) return false; const k=(s>=6?-1:(s<=-6?1:pick([-1,1]))); s+=k; draw(); num.animate([{opacity:.2},{opacity:1}],{duration:600}); return true; },
     destroy(){}
   };
 }
@@ -973,6 +995,8 @@ function wRuler(work,spec){
     lock(ok){ locked=true; dials.lock(ok); },
     solve(){ rx=ox; draw(); dials.solve(); },
     value(){ return dials.vals.cm*10+dials.vals.mm; },
+    invert(){ dials.invert(); },
+    sabotage(){ if(locked) return false; rx=Math.max(-300,Math.min(380,rx+pick([-1,1])*rnd(40,90))); draw(); if(dials.vals.cm||dials.vals.mm) dials.sabotage(); return true; },
     destroy(){}
   };
 }
@@ -1132,6 +1156,12 @@ function wResize(work,spec){
     lock(){ locked=true; hnd.style.cursor='default'; draw(); },
     solve(){ w=spec.answer.w; h=spec.answer.h; draw(); },
     value(){ return {w,h}; },
+    sabotage(){
+      if(locked) return false;
+      const c=[[w-1,h],[w+1,h],[w,h-1],[w,h+1]].filter(([x,y])=>x>=1&&x<=cols-1&&y>=1&&y<=rows-1);
+      const ruins=c.filter(([x,y])=>!spec.isOk(x,y)); const e=pick(ruins.length?ruins:c);
+      w=e[0]; h=e[1]; draw(); return true;
+    },
     destroy(){}
   };
 }
@@ -1171,6 +1201,8 @@ function wDrone(work,spec){
     lock(ok){ dials.lock(ok); },
     solve(){ dials.solve(); },
     value(){ return odoVal(dials.vals); },
+    invert(){ dials.invert(); },
+    sabotage(){ return dials.sabotage(); },
     destroy(){ alive=false; if(raf) cancelAnimationFrame(raf); }
   };
 }
@@ -1224,8 +1256,9 @@ function wThermo(work,spec){
   hit.addEventListener('pointerdown',ev=>{ if(locked) return; ev.preventDefault(); drag=ev.pointerId; try{ hit.setPointerCapture(ev.pointerId); }catch(e){} setY(ev); });
   hit.addEventListener('pointermove',ev=>{ if(drag!==ev.pointerId) return; setY(ev); });
   const end=()=>{ drag=null; }; hit.addEventListener('pointerup',end); hit.addEventListener('pointercancel',end);
-  holdRepeat(up,()=>{ if(locked) return; v=clampV(v+1); draw(); sfx.tick(); });
-  holdRepeat(dn,()=>{ if(locked) return; v=clampV(v-1); draw(); sfx.tick(); });
+  let inv=1;
+  holdRepeat(up,()=>{ if(locked) return; v=clampV(v+inv); draw(); sfx.tick(); });
+  holdRepeat(dn,()=>{ if(locked) return; v=clampV(v-inv); draw(); sfx.tick(); });
   draw();
   return {
     _spec:spec,
@@ -1234,6 +1267,8 @@ function wThermo(work,spec){
     lock(){ locked=true; up.disabled=dn.disabled=true; const c=fromScale(v,sc); read.textContent='Leitura: '+fmt(v)+' '+SC_NAME[sc]+'  =  '+fmt(c,1)+' °C  =  '+fmt(c+273,1)+' K  =  '+fmt(1.8*c+32,1)+' °F'; },
     solve(){ v=spec.target; draw(); },
     value(){ return v; },
+    invert(){ inv=-1; },
+    sabotage(){ if(locked||drag!==null) return false; v=clampV(v+pick([-1,1])*rnd(6,14)); draw(); return true; },
     destroy(){}
   };
 }
@@ -1251,18 +1286,48 @@ const PHASES=[
 const bigS=s=>'<span class="big">'+s+'</span>';
 
 /* ---------- Módulo 1: Laboratório ---------- */
+// nível difícil: só na Missão Final, a partir da 16ª tarefa
+const HARD=()=>!!(st&&st.mode==='inf'&&st.idx>=15);
 const INSTR={regua:['sv-regua','Régua'],trena:['sv-trena','Trena (fita métrica)'],balanca:['sv-balanca','Balança'],termo:['sv-termo','Termômetro'],crono:['sv-crono','Cronômetro'],copo:['sv-copo','Copo medidor']};
 const INSTR_TASKS=[
+  // régua: coisas pequenas
   {g:'comprimento',i:'regua',t:'Medir o comprimento do parafuso da antena'},
+  {g:'comprimento',i:'regua',t:'Medir a largura do caderno de bordo'},
+  {g:'comprimento',i:'regua',t:'Medir o tamanho de uma peça do motor'},
+  {g:'comprimento',i:'regua',t:'Traçar uma linha de 15 cm no mapa estelar'},
+  {g:'comprimento',i:'regua',t:'Medir o comprimento do lápis do piloto'},
+  {g:'comprimento',i:'regua',t:'Medir a largura do crachá do cadete'},
+  // trena: coisas grandes
   {g:'comprimento',i:'trena',t:'Medir o comprimento do corredor da estação'},
+  {g:'comprimento',i:'trena',t:'Medir a altura da porta da nave'},
+  {g:'comprimento',i:'trena',t:'Medir a largura da sala de controle'},
+  {g:'comprimento',i:'trena',t:'Medir a altura do robô MED-6'},
+  {g:'comprimento',i:'trena',t:'Medir o comprimento do jipe lunar'},
+  {g:'comprimento',i:'trena',t:'Medir a distância entre as camas da cabine'},
   {g:'massa',i:'balanca',t:'Descobrir a massa da amostra de rocha lunar'},
   {g:'massa',i:'balanca',t:'Pesar a ração dos astronautas'},
+  {g:'massa',i:'balanca',t:'Pesar a mochila espacial antes do voo'},
+  {g:'massa',i:'balanca',t:'Descobrir a massa de um saco de farinha'},
+  {g:'massa',i:'balanca',t:'Pesar o robô na enfermaria da nave'},
+  {g:'massa',i:'balanca',t:'Conferir a massa das frutas da estufa'},
   {g:'temperatura',i:'termo',t:'Verificar a temperatura do motor'},
   {g:'temperatura',i:'termo',t:'Ver se o astronauta está com febre'},
+  {g:'temperatura',i:'termo',t:'Medir a temperatura da água do chuveiro'},
+  {g:'temperatura',i:'termo',t:'Conferir se o freezer das amostras está gelado'},
+  {g:'temperatura',i:'termo',t:'Medir a temperatura da estufa de plantas'},
+  {g:'temperatura',i:'termo',t:'Ver se o café do comandante já esfriou'},
   {g:'tempo',i:'crono',t:'Cronometrar a contagem regressiva'},
   {g:'tempo',i:'crono',t:'Medir quanto dura a caminhada espacial'},
+  {g:'tempo',i:'crono',t:'Marcar o tempo da corrida dos cadetes'},
+  {g:'tempo',i:'crono',t:'Medir quanto tempo a água leva para ferver'},
+  {g:'tempo',i:'crono',t:'Cronometrar o treino na esteira'},
+  {g:'tempo',i:'crono',t:'Medir o tempo de reação do piloto'},
   {g:'capacidade',i:'copo',t:'Separar 200 mL de água para o experimento'},
-  {g:'capacidade',i:'copo',t:'Medir o suco do lanche da tripulação'}
+  {g:'capacidade',i:'copo',t:'Medir o suco do lanche da tripulação'},
+  {g:'capacidade',i:'copo',t:'Medir o leite para o bolo espacial'},
+  {g:'capacidade',i:'copo',t:'Separar 250 mL de óleo para o robô'},
+  {g:'capacidade',i:'copo',t:'Medir a água para regar a estufa'},
+  {g:'capacidade',i:'copo',t:'Separar o caldo da sopa do jantar'}
 ];
 function tInstrumentos(){
   const gs=shuffle(['comprimento','massa','temperatura','tempo','capacidade']);
@@ -1271,30 +1336,51 @@ function tInstrumentos(){
   const distr=pick(INSTR_TASKS.filter(x=>x.g===sobra)).i;
   const zones=tarefas.map((t,k)=>({id:'z'+k,label:t.t}));
   const tokens=tarefas.map((t,k)=>({id:'t'+k,label:INSTR[t.i][1],icon:INSTR[t.i][0],zone:'z'+k})).concat([{id:'tx',label:INSTR[distr][1],icon:INSTR[distr][0],zone:null}]);
+  const temRegua=tarefas.some(t=>t.i==='regua'||t.i==='trena');
   return {gen:'instrumentos', title:'Instrumentos de medida',
     prompt:'A tripulação precisa medir várias coisas. Arraste o <b>instrumento certo</b> para cada tarefa. Um instrumento vai sobrar!',
     mount:w=>wDnD(w,{zones,tokens}),
-    explain:()=> 'Cada instrumento mede uma <b>grandeza</b>: '+tarefas.map(t=>'<b>'+INSTR[t.i][1].toLowerCase()+'</b> → '+t.g).join(' · ')+'. Sobrou: '+INSTR[distr][1].toLowerCase()+' (que mede '+sobra+').'};
+    explain:()=> 'Cada instrumento mede uma <b>grandeza</b>: '+tarefas.map(t=>'<b>'+INSTR[t.i][1].toLowerCase()+'</b> → '+t.g).join(' · ')+'. Sobrou: '+INSTR[distr][1].toLowerCase()+' (que mede '+sobra+').'+(temRegua?' Para coisas pequenas usamos a régua; para coisas grandes, a trena.':'')};
 }
-const GRAND_SIM=['comprimento da nave','massa do astronauta','temperatura de Marte','tempo da viagem','capacidade do tanque de água','velocidade do foguete','distância até a Lua','altura da antena'];
-const GRAND_NAO=['coragem do piloto','cor do planeta','beleza das estrelas','saudade de casa','simpatia do robô','medo do escuro','gosto da comida espacial'];
+const GRAND_SIM=['comprimento da nave','massa do astronauta','temperatura de Marte','tempo da viagem','capacidade do tanque de água','velocidade do foguete','distância até a Lua','altura da antena',
+  'largura da porta da cabine','massa da rocha lunar','temperatura do café do comandante','duração da caminhada espacial','capacidade da garrafa de suco','altura do foguete','profundidade da cratera',
+  'temperatura do motor','massa do satélite','tempo de carga da bateria','distância entre duas estrelas','espessura do vidro da janela','capacidade da caixa-d’água da base','velocidade do jipe lunar',
+  'idade do astronauta','comprimento do cabo de segurança','massa da mochila espacial','temperatura da água do chuveiro','tempo da contagem regressiva','comprimento do corredor da estação',
+  'largura do painel solar','massa da ração diária','duração do dia em Marte','temperatura da sala de controle','altura do robô MED-6','capacidade do copo medidor','distância percorrida pelo drone','perímetro da base lunar'];
+const GRAND_NAO=['coragem do piloto','cor do planeta','beleza das estrelas','saudade de casa','simpatia do robô','medo do escuro','gosto da comida espacial','alegria da tripulação',
+  'inteligência do alien','bondade da comandante','preguiça do cadete','felicidade de ver a Terra','amizade entre os astronautas','nome da nave','formato da estrela','sabor do suco',
+  'cheiro da estufa','tristeza de ir embora','vontade de voltar para casa','gentileza do cozinheiro','curiosidade dos cadetes','raiva do alien Zorg','sonho de ser astronauta',
+  'paciência do professor','cor do uniforme','animação da torcida','esperança da missão','timidez do robô','música preferida do piloto','time do coração do comandante',
+  'humor do computador de bordo','elegância do traje espacial'];
+// pegadinhas (só no nível difícil): parecem uma coisa, mas são outra
+const GRAND_SIM_HARD=[['intensidade do barulho do foguete','em decibéis (dB)'],['força do braço robótico','em newtons (N)'],['área do painel solar','em metros quadrados (m²)'],['pressão do ar dentro da nave','com um aparelho chamado manômetro'],['quantidade de chuva na estufa','em milímetros de chuva'],['volume de ar no capacete','em litros']];
+const GRAND_NAO_HARD=['importância da missão','sorte do piloto','talento do cozinheiro','dificuldade da prova de pilotagem','qualidade do desenho da nave','confiança no comandante'];
 function tGrandeza(){
-  const sim=shuffle(GRAND_SIM).slice(0,4), nao=shuffle(GRAND_NAO).slice(0,3);
-  const tokens=sim.map((t,k)=>({id:'s'+k,label:t,zone:'sim'})).concat(nao.map((t,k)=>({id:'n'+k,label:t,zone:'nao'})));
-  return {gen:'grandeza', title:'O que é grandeza?',
-    prompt:'<b>Grandeza</b> é tudo o que pode ser medido, com um número e uma unidade. Separe os cartões nas duas caixas.',
+  const hard=HARD();
+  let sim=shuffle(GRAND_SIM).slice(0,hard?3:4), nao=shuffle(GRAND_NAO).slice(0,hard?2:3), armad=[], armadN=[];
+  if(hard){ armad=shuffle(GRAND_SIM_HARD).slice(0,rnd(1,2)); armadN=shuffle(GRAND_NAO_HARD).slice(0,1); }
+  const tokens=sim.concat(armad.map(a=>a[0])).map((t,k)=>({id:'s'+k,label:t,zone:'sim'})).concat(nao.concat(armadN).map((t,k)=>({id:'n'+k,label:t,zone:'nao'})));
+  return {gen:'grandeza', title:hard?'O que é grandeza? (com pegadinhas)':'O que é grandeza?',
+    prompt:'<b>Grandeza</b> é tudo o que pode ser medido, com um número e uma unidade. Separe os cartões nas duas caixas.'+(hard?' <b>Cuidado: tem pegadinha!</b>':''),
     mount:w=>wDnD(w,{cap:'many',zones:[{id:'sim',label:'É grandeza (dá para medir)'},{id:'nao',label:'Não é grandeza'}],tokens,trayFirst:true}),
-    explain:()=>'Dá para medir com número e unidade: '+sim.join(', ')+'. Já '+nao.join(', ')+' não têm unidade de medida: não são grandezas.'};
+    explain:()=>'Dá para medir com número e unidade: '+sim.concat(armad.map(a=>a[0])).join(', ')+'. Já '+nao.concat(armadN).join(', ')+' não têm unidade de medida: não são grandezas.'+(armad.length?' Pegadinha: '+armad.map(a=>'a '+a[0]+' também é grandeza (mede-se '+a[1]+')').join('; ')+'.':'')};
 }
+const UNID_GR={
+  'Comprimento':['metro (m)','quilômetro (km)','centímetro (cm)','milímetro (mm)','decímetro (dm)','hectômetro (hm)','decâmetro (dam)','polegada','pé','jarda','milha','légua'],
+  'Massa':['quilograma (kg)','grama (g)','tonelada (t)','miligrama (mg)','arroba'],
+  'Tempo':['segundo (s)','minuto (min)','hora (h)','dia','semana','mês','ano','década','século'],
+  'Temperatura':['kelvin (K)','grau Celsius (°C)','grau Fahrenheit (°F)'],
+  'Capacidade':['litro (L)','mililitro (mL)']
+};
 function tSI(){
-  const all=[['Comprimento','metro (m)'],['Massa','quilograma (kg)'],['Tempo','segundo (s)'],['Temperatura','kelvin (K)']];
-  const zs=shuffle(all).slice(0,3), fora=all.find(a=>!zs.includes(a));
-  const zones=zs.map((a,k)=>({id:'z'+k,label:a[0]}));
-  const tokens=zs.map((a,k)=>({id:'t'+k,label:a[1],zone:'z'+k})).concat([{id:'tx',label:fora[1],zone:null}]);
-  return {gen:'si', title:'Sistema Internacional (SI)',
-    prompt:'No mundo todo, cientistas usam as unidades do <b>Sistema Internacional de Unidades (SI)</b>. Arraste a unidade de cada grandeza. Uma vai sobrar.',
-    mount:w=>wDnD(w,{zones,tokens}),
-    explain:()=>'No SI: comprimento → metro (m), massa → quilograma (kg), tempo → segundo (s), temperatura → kelvin (K). No dia a dia também usamos o grau Celsius (°C) para a temperatura.'};
+  const gs=shuffle(Object.keys(UNID_GR)).slice(0,3);
+  const zones=gs.map((g,k)=>({id:'z'+k,label:g}));
+  const ch={}; gs.forEach(g=>{ ch[g]=shuffle(UNID_GR[g]).slice(0,2); });
+  const tokens=[]; gs.forEach((g,k)=>ch[g].forEach((u,j)=>tokens.push({id:'t'+k+'_'+j,label:u,zone:'z'+k})));
+  return {gen:'si', title:'Unidades e grandezas',
+    prompt:'Cada unidade serve para medir uma grandeza. Arraste cada unidade para a grandeza que ela mede.',
+    mount:w=>wDnD(w,{cap:'many',zones,tokens,trayFirst:true}),
+    explain:()=>gs.map(g=>'<b>'+g.toLowerCase()+'</b>: '+ch[g].join(' e ')).join(' · ')+'. No Sistema Internacional (SI), as unidades principais são o metro (comprimento), o quilograma (massa), o segundo (tempo) e o kelvin (temperatura).'};
 }
 const CREW=[{n:'do alien Zorg',p:18},{n:'do robô MED-6',p:20},{n:'da comandante Lia',p:15},{n:'do cadete Tito',p:12}];
 function tPalmos(){
@@ -1322,10 +1408,11 @@ function tCopo(){
 
 /* ---------- Módulo 2: Navegação ---------- */
 const COMMA_NUMS=['3,5','12','0,8','2,45','150','7','48,2','0,35','1,2','25','6,04','0,5','9','130'];
+const COMMA_HARD=['0,045','0,0072','0,6','0,38','1,05','0,09','2,005','0,12'];
 function parseNum(s){ const p=s.split(','); let dig=(p[0]+(p[1]||'')).replace(/^0+(?=\d)/,'')||'0', exp=-(p[1]||'').length; while(dig.length>1&&dig.endsWith('0')){ dig=dig.slice(0,-1); exp++; } return {digits:dig,exp}; }
 function tVirgula(){
   for(let tent=0;tent<100;tent++){
-    const n=parseNum(pick(COMMA_NUMS)), fi=rnd(0,6), d=pick([-3,-2,-1,1,2,3,3,2,1,4]);
+    const hard=HARD(), n=parseNum(pick(hard?COMMA_HARD.concat(COMMA_NUMS):COMMA_NUMS)), fi=rnd(0,6), d=pick(hard?[-4,-3,4,4,5,5,6,3]:[-3,-2,-1,1,2,3,3,2,1,4]);
     const ti=fi+d; if(ti<0||ti>6) continue;
     const e=n.exp+d, res=numStr(n.digits,e);
     if(res.replace(',','').length>8||(e<0&&-e>4)) continue;
@@ -1361,7 +1448,12 @@ function tAntigas(){
     mount:w=>wFill(w,{L:a.L,b:1,barLabel:'Antena: '+a.bar,blockLabel:a.blk,blockPlural:a.pl,blockShort:a.L>10?'':a.blk}),
     explain:()=>'<b>'+a.bar+' = '+a.L+' '+a.pl+'</b>. '+a.fact+' Também existem o cúbito (do cotovelo à ponta do dedo) e a milha (cerca de 1,6 km).'};
 }
-const ADEQ={km:['distância da Terra até a Lua','distância entre duas cidades','altura da órbita da estação'],m:['altura do foguete','comprimento do corredor da nave'],cm:['comprimento do caderno de bordo','largura da tela do tablet'],mm:['espessura de um fio da antena','espessura de uma moeda','tamanho de uma formiga']};
+const ADEQ={
+  km:['distância da Terra até a Lua','distância entre duas cidades','altura da órbita da estação','comprimento de um rio','distância de Macapá até Belém','percurso de uma maratona','comprimento de uma estrada','distância até o planeta Marte','largura do oceano Atlântico'],
+  m:['altura do foguete','comprimento do corredor da nave','altura de um prédio','comprimento de uma piscina','largura da quadra da escola','comprimento de uma baleia','altura de uma árvore','comprimento de um ônibus','altura de um poste de luz'],
+  cm:['comprimento do caderno de bordo','largura da tela do tablet','comprimento de um lápis','altura de uma garrafa','largura de um livro','comprimento do seu pé','altura de uma caneca','comprimento de uma banana','largura de um celular'],
+  mm:['espessura de um fio da antena','espessura de uma moeda','tamanho de uma formiga','espessura de uma folha de papel','grossura da ponta do lápis','espessura de um cartão','tamanho de um grão de arroz','espessura de um fio de cabelo']
+};
 function tAdequada(){
   const us=['km','m','cm','mm'], ob=us.map(u=>pick(ADEQ[u]));
   const ord=shuffle([0,1,2,3]);
@@ -1375,6 +1467,15 @@ function tAdequada(){
 /* ---------- Módulo 3: Base Lunar ---------- */
 function rectFor(P,maxW,maxH){ const s=P/2; const opts=[]; for(let a=1;a<=maxW;a++){ const b=s-a; if(b>=1&&b<=maxH) opts.push([a,b]); } return pick(opts); }
 function tConstruir(){
+  if(HARD()){
+    const tipo=pick(['livre','naoret']), u=2, P=pick([20,24,28,32]), Pg=P/u;
+    let a,b; do{ [a,b]=rectFor(Pg,10,7); }while(tipo==='naoret'&&(a<2||b<2));
+    const ans=tipo==='naoret'?[[1,1],[a,1],[a,2],[1+a,2],[1+a,1+b],[1,1+b]]:[[1,1],[1+a,1],[1+a,1+b],[1,1+b]];
+    return {gen:'construir', title:'Construa a cerca (nível difícil)',
+      prompt:'Construa uma cerca com perímetro de <b>'+P+' m</b>'+(tipo==='naoret'?' que <b>não seja um retângulo</b>':'')+'. Atenção: aqui cada lado do quadradinho mede <b>2 m</b>!',
+      mount:w=>wGrid(w,{P,shape:tipo,answer:ans,unit:u}),
+      explain:(ok,w)=>{ const v=w.value(); return (v?'Sua cerca tem perímetro de <b>'+fmt(v.P)+' m</b> ('+v.sides.join(' + ')+'). ':'')+(ok?'':(v&&v.P!==P?'O pedido era '+P+' m. ':'A cerca não podia ser um retângulo. '))+'Como cada quadradinho tem 2 m de lado, contamos os lados dos quadradinhos e multiplicamos por 2.'; }};
+  }
   const tipo=pick(['livre','naoret','retangulo','quadrado']);
   let P, txt, ans;
   if(tipo==='quadrado'){ const l=rnd(2,6); P=4*l; txt='uma cerca <b>quadrada</b> com perímetro de <b>'+P+' m</b>'; ans=[[2,1],[2+l,1],[2+l,1+l],[2,1+l]]; }
@@ -1427,9 +1528,21 @@ function labelsOut(pts,texts){
   return pts.map((p,i)=>{ const q=pts[(i+1)%pts.length]; const mx=(p[0]+q[0])/2, my=(p[1]+q[1])/2; let dx=mx-cx, dy=my-cy; const l=Math.hypot(dx,dy)||1; return texts[i]===null?null:{text:texts[i],at:[mx+dx/l*22,my+dy/l*22+6]}; }).filter(Boolean);
 }
 function tDrone(){
-  const tipo=pick(['ret','quad','L','tri','penta']);
+  const tipo=HARD()?pick(['Lfalta','Lfalta','retcm','penta']):pick(['ret','quad','L','tri','penta']);
   let pts, labels, ans, expl, note='';
-  if(tipo==='ret'){
+  if(tipo==='Lfalta'){
+    const Wm=rnd(30,60), Hm=rnd(20,40), w1=rnd(10,Wm-10), h1=rnd(8,Hm-8);
+    const sx=380/Wm, sy=240/Hm, x0=90, y0=40;
+    pts=[[x0,y0],[x0+Wm*sx,y0],[x0+Wm*sx,y0+h1*sy],[x0+w1*sx,y0+h1*sy],[x0+w1*sx,y0+Hm*sy],[x0,y0+Hm*sy]];
+    const L=[Wm,h1,Wm-w1,Hm-h1,w1,Hm]; labels=labelsOut(pts,[Wm+' m',h1+' m','? m','? m',w1+' m',Hm+' m']);
+    ans=L.reduce((s,v)=>s+v,0); note='Dois lados não têm medida: descubra usando os outros lados!';
+    expl='Os lados que faltavam: '+Wm+' − '+w1+' = '+(Wm-w1)+' m e '+Hm+' − '+h1+' = '+(Hm-h1)+' m. Somando todos: '+L.join(' + ')+' = <b>'+ans+' m</b>.';
+  } else if(tipo==='retcm'){
+    const a=rnd(12,60), b=rnd(3,9); const Hd=Math.max(110,Math.min(230,Math.round(400*b/a)));
+    pts=[[80,50],[480,50],[480,50+Hd],[80,50+Hd]]; labels=labelsOut(pts,[null,null,a+' m',(b*100)+' cm']);
+    ans=2*(a+b); note='Retângulo. Atenção: um lado está em centímetros!';
+    expl='Primeiro convertemos: '+(b*100)+' cm = '+b+' m. Depois, P = 2 × ('+a+' + '+b+') = <b>'+ans+' m</b>.';
+  } else if(tipo==='ret'){
     const a=rnd(12,60), b=rnd(8,40); const Wd=400, Hd=Math.max(110,Math.min(230,Math.round(400*b/a)));
     pts=[[80,50],[80+Wd,50],[80+Wd,50+Hd],[80,50+Hd]]; labels=labelsOut(pts,[null,null,a+' m',b+' m']);
     ans=2*(a+b); note='A base é um retângulo: os lados opostos têm a mesma medida.'; expl='No retângulo os lados opostos são iguais: P = 2 × ('+a+' + '+b+') = <b>'+ans+' m</b>.';
@@ -1458,16 +1571,24 @@ function tDrone(){
 }
 
 /* ---------- Módulo 4: Controle da Missão ---------- */
+const HDEC_HARD=[[2.35,2,21],[1.15,1,9],[3.45,3,27],[0.85,0,51],[2.05,2,3],[1.65,1,39],[0.95,0,57],[1.05,1,3]];
 const HDEC=[[1.2,1,12],[1.5,1,30],[2.25,2,15],[0.75,0,45],[2.4,2,24],[1.25,1,15],[0.5,0,30],[3.1,3,6],[0.2,0,12],[1.75,1,45],[2.5,2,30],[0.1,0,6],[1.8,1,48]];
 function hmFields(){ return [{key:'h',label:'horas',min:0,max:12,sfx:'h'},{sep:':'},{key:'m',label:'minutos',min:0,max:59,wrap:true,sfx:'min'}]; }
 function tHorasDec(){
-  const [hd,h,m]=pick(HDEC), frac=Math.round((hd-Math.floor(hd))*100)/100;
+  const [hd,h,m]=pick(HARD()?HDEC_HARD:HDEC), frac=Math.round((hd-Math.floor(hd))*100)/100;
   return {gen:'horasdec', title:'Horas decimais',
     prompt:'A viagem até a estação dura '+bigS(fmt(hd)+' h')+'. Ajuste o relógio de bordo em <b>horas e minutos</b>.',
     mount:w=>wDials(w,{fields:hmFields(),isOk:v=>v.h===h&&v.m===m,answer:{h,m}}),
     explain:()=>(frac?fmt(frac)+' h = '+fmt(frac)+' × 60 min = '+m+' min. ':'')+'Então <b>'+fmt(hd)+' h = '+h+' h '+m+' min</b> (= '+(h*60+m)+' min).'};
 }
 function tResto(){
+  if(HARD()&&Math.random()<.6){
+    const t=pick([3725,4210,5000,3661,7384,4500,3900]), h=Math.floor(t/3600), mi=Math.floor((t%3600)/60), s=t%60;
+    return {gen:'resto', title:'Segundos em horas (nível difícil)',
+      prompt:'O satélite ficou sem sinal por '+bigS(t+' s')+'. Quanto é isso em <b>horas, minutos e segundos</b>?',
+      mount:w=>wDials(w,{fields:[{key:'h',label:'horas',min:0,max:5,sfx:'h'},{sep:':'},{key:'m',label:'minutos',min:0,max:59,wrap:true,sfx:'min'},{sep:':'},{key:'s',label:'segundos',min:0,max:59,wrap:true,sfx:'s'}],isOk:v=>v.h===h&&v.m===mi&&v.s===s,answer:{h,m:mi,s}}),
+      explain:()=>'1 h = 3 600 s e 1 min = 60 s. '+t+' ÷ 3 600 = '+h+' e sobram '+(t%3600)+' s; '+(t%3600)+' ÷ 60 = '+mi+' e sobram '+s+'. Então <b>'+t+' s = '+h+' h '+mi+' min '+s+' s</b>.'};
+  }
   if(Math.random()<.6){
     const t=pick([75,90,100,135,150,200,250,310,125,165]), h=Math.floor(t/60), m=t%60;
     return {gen:'resto', title:'Minutos em horas',
@@ -1483,7 +1604,7 @@ function tResto(){
 }
 function tCalendario(){
   const v=pick(['dias','anos','meses','horas','semanas']);
-  if(v==='dias'){ const d=pick([10,17,23,30,38,45,52]), s=Math.floor(d/7), r=d%7;
+  if(v==='dias'){ const d=pick(HARD()?[100,75,125,90,200,64]:[10,17,23,30,38,45,52]), s=Math.floor(d/7), r=d%7;
     return {gen:'calendario', title:'Semanas e dias', prompt:'A missão em Marte dura '+bigS(d+' dias')+'. Quantas <b>semanas e dias</b> são?',
       mount:w=>wDials(w,{fields:[{key:'s',label:'semanas',min:0,max:20,sfx:'sem.'},{key:'d',label:'dias',min:0,max:6,wrap:true,sfx:'dias'}],isOk:x=>x.s===s&&x.d===r,answer:{s,d:r}}),
       explain:()=>'1 semana = 7 dias. '+d+' ÷ 7 = '+s+' e sobra '+r+': <b>'+s+' semanas e '+r+' dias</b>.'}; }
@@ -1495,7 +1616,7 @@ function tCalendario(){
     return {gen:'calendario', title:'Meses e anos', prompt:'O astronauta ficou '+bigS(t+' meses')+' na estação. Quanto é isso em <b>anos e meses</b>?',
       mount:w=>wDials(w,{fields:[{key:'a',label:'anos',min:0,max:9,sfx:'anos'},{key:'m',label:'meses',min:0,max:11,wrap:true,sfx:'meses'}],isOk:x=>x.a===a&&x.m===r,answer:{a,m:r}}),
       explain:()=>'1 ano = 12 meses. '+t+' ÷ 12 = '+a+' e sobra '+r+': <b>'+a+' ano'+(a>1?'s':'')+' e '+r+' meses</b>.'}; }
-  if(v==='horas'){ const t=pick([30,50,75,100,28,60]), d=Math.floor(t/24), r=t%24;
+  if(v==='horas'){ const t=pick(HARD()?[150,200,130,175,250]:[30,50,75,100,28,60]), d=Math.floor(t/24), r=t%24;
     return {gen:'calendario', title:'Dias e horas', prompt:'O conserto do satélite levou '+bigS(t+' h')+'. Quantos <b>dias e horas</b> são?',
       mount:w=>wDials(w,{fields:[{key:'d',label:'dias',min:0,max:9,sfx:'dias'},{key:'h',label:'horas',min:0,max:23,wrap:true,sfx:'h'}],isOk:x=>x.d===d&&x.h===r,answer:{d,h:r}}),
       explain:()=>'1 dia = 24 h. '+t+' ÷ 24 = '+d+' e sobra '+r+': <b>'+d+' dia'+(d>1?'s':'')+' e '+r+' h</b>.'}; }
@@ -1520,6 +1641,11 @@ function tTermoK(){
 }
 function tTermoF(){
   const r=Math.random();
+  if(HARD()&&r<.5){ const c=pick([12,18,22,28,33,37,-18,15,8]), fe=1.8*c+32, f=Math.round(fe);
+    return {gen:'termof', title:'Celsius → Fahrenheit (nível difícil)',
+      prompt:'O computador de bordo pede a temperatura em <b>Fahrenheit</b>. O sensor marcou '+bigS(fmt(c)+' °C')+'. Ajuste o termômetro em °F (vale arredondar).',
+      mount:w=>wThermo(w,{scale:'F',target:f,tol:2,showRef:true}),
+      explain:()=>'<b>°F = 1,8 × °C + 32</b>: 1,8 × '+fmt(c)+' + 32 = <b>'+fmt(fe,1)+' °F</b> (cerca de '+f+' °F).'}; }
   if(r<.4){ const c=pick([-40,-10,0,10,20,25,30,35,40,100]), f=Math.round(1.8*c+32);
     return {gen:'termof', title:'Celsius → Fahrenheit',
       prompt:'A nave vai pousar nos Estados Unidos, onde usam <b>Fahrenheit</b>. Lá fora está '+bigS(fmt(c)+' °C')+'. Ajuste o termômetro em °F.',
@@ -1548,11 +1674,13 @@ function mk(gen,mod){ const t=gen(); t.mod=mod; return t; }
 function buildCampaign(){ const all=[]; MOD_GENS.forEach((gs,m)=>gs.forEach((g,k)=>{ const t=mk(g,m); t.first=(k===0); all.push(t); })); return all; }
 function buildModule(m){ return MOD_GENS[m].map((g,k)=>{ const t=mk(g,m); t.first=(k===0); return t; }); }
 function buildFinalBatch(lastGen){
+  // as tarefas só são criadas quando chegam (assim o nível difícil vale a partir da 16ª)
   const pool=[]; MOD_GENS.forEach((gs,m)=>gs.forEach(g=>{ if(!pool.some(p=>p.g===g)) pool.push({g,m}); }));
   const out=[]; let prev=lastGen;
-  shuffle(pool).concat(shuffle(pool)).forEach(p=>{ const t=mk(p.g,p.m); if(t.gen===prev){ out.splice(Math.max(0,out.length-3),0,t); } else out.push(t); prev=t.gen; });
+  shuffle(pool).concat(shuffle(pool)).forEach(p=>{ const t={lazy:true,g:p.g,m:p.m,gen:p.g.name,mod:p.m}; if(t.gen===prev){ out.splice(Math.max(0,out.length-3),0,t); } else out.push(t); prev=t.gen; });
   return out;
 }
+function realize(i){ const q=st.Q[i]; if(q&&q.lazy){ st.Q[i]=mk(q.g,q.m); st.Q[i].lazyGen=q.gen; } return st.Q[i]; }
 
 /* =====================================================================
    FLUXO DO JOGO
@@ -1595,7 +1723,7 @@ function startGame(mode,mod){
   if(ONLINE) saveMe();
   const nome=$('inNome').value.trim()||'Cadete';
   st={nome:nome,equipe:$('inEquipe').value.trim(),mode:mode,mod:mod,lives:mode==='inf'?3:0,Q:null,idx:0,score:0,streak:0,ok:0,res:[],
-      ph:PHASES.map(()=>({ok:0,total:0})),locked:false,t0:0,asts:0,lastCurse:null,astTimer:null,lastGen:null,
+      ph:PHASES.map(()=>({ok:0,total:0})),locked:false,t0:0,asts:0,lastCurses:[],curseOff:[],astTimer:null,lastGen:null,
       id:'i'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),turma:(ONLINE?($('selTurma').value||''):'')};
   st.Q = mode==='inf' ? buildFinalBatch(null) : (mode==='treino' ? buildModule(mod) : buildCampaign());
   $('btnStop').hidden=(mode!=='inf'); resetStop();
@@ -1605,10 +1733,10 @@ function startGame(mode,mod){
 }
 function go(){
   if(st.idx>=st.Q.length){
-    if(st.mode==='inf') st.Q=st.Q.concat(buildFinalBatch(st.Q[st.Q.length-1].gen));
+    if(st.mode==='inf'){ const u=st.Q[st.Q.length-1]; st.Q=st.Q.concat(buildFinalBatch(u.lazyGen||u.gen)); }
     else { finish(); return; }
   }
-  const q=st.Q[st.idx];
+  const q=(st.mode==='inf')?realize(st.idx):st.Q[st.idx];
   updateHud(); drawDots();
   if(q.first && !q.introShown && st.mode!=='inf'){
     q.introShown=true;
@@ -1626,7 +1754,8 @@ function renderTask(){
   const q=st.Q[st.idx];
   clearCurses(); destroyWidget();
   $('intro').hidden=true; $('play').hidden=false;
-  $('phaseTag').textContent=(st.mode==='inf'?'Missão Final':PHASES[q.mod].name)+' · '+q.title;
+  $('phaseTag').textContent=(st.mode==='inf'?'Missão Final · Nível '+nivel():PHASES[q.mod].name)+' · '+q.title;
+  if(st.mode==='inf'&&(st.idx===10||st.idx===15)&&!q.lvShown){ q.lvShown=true; fxBanner('NÍVEL '+nivel(),st.idx===10?'Mais maldições pela frente!':'Tarefas difíceis e maldições em dobro!'); beep(392,.2,'square',0,.05); beep(523,.3,'square',.15,.05); }
   $('prompt').innerHTML=q.prompt;
   const w=$('work'); w.innerHTML='';
   widget=q.mount(w);
@@ -1681,20 +1810,32 @@ function nextTask(){
 }
 
 /* ----- maldições da Missão Final (leves) ----- */
+const CURSE_NAME={fog:'Tempestade solar',ast:'Asteroides',dark:'Apagão',turb:'Turbulência',dust:'Poeira lunar',inv:'Controles invertidos',zorg:'Zorg sabotador'};
+const CURSE_NAO_JUNTAS=[['dark','dust'],['dark','fog'],['dust','fog']];
+const nivel=()=>st.idx<10?1:(st.idx<15?2:3);
 function pickCurses(){
   if(!st||st.mode!=='inf') return [];
-  const n=st.idx; if(n<3) return [];
-  if(Math.random()>(n<10?0.35:0.5)){ st.lastCurse=null; return []; }
-  if(n>=15 && Math.random()<0.2){ st.lastCurse='both'; return ['fog','ast']; }
-  let c=Math.random()<0.5?'fog':'ast';
-  if(c===st.lastCurse) c=(c==='fog'?'ast':'fog');
-  st.lastCurse=c; return [c];
+  if(st.idx<3) return [];
+  const lv=nivel();
+  if(Math.random()>(lv===1?0.4:(lv===2?0.55:0.65))){ st.lastCurses=[]; return []; }
+  let pool=['fog','ast','dark','turb','dust'];
+  if(widget&&widget.invert) pool.push('inv','inv');
+  if(widget&&widget.sabotage) pool.push('zorg','zorg');
+  pool=pool.filter(c=>!(st.lastCurses||[]).includes(c));   // não repete a da tarefa anterior
+  const a=pick(pool), out=[a];
+  if(lv===3 && Math.random()<0.35){
+    const b=[...new Set(pool)].filter(c=>c!==a && !CURSE_NAO_JUNTAS.some(p=>p.includes(a)&&p.includes(c)));
+    if(b.length) out.push(pick(b));
+  }
+  st.lastCurses=out; return out;
 }
 function clearCurses(){
   if(!st) return;
   clearTimeout(st.astTimer);
   [...$('work').querySelectorAll('.ast')].forEach(b=>b.remove());
   st.asts=0;
+  (st.curseOff||[]).forEach(f=>{ try{ f(); }catch(e){} }); st.curseOff=[];
+  $('work').classList.remove('shake','clip');
   $('qcard').classList.remove('fog','seen'); $('curseTag').hidden=true;
 }
 function blast(b){
@@ -1717,13 +1858,72 @@ function spawnAsteroids(k){
   }
   st.astTimer=setTimeout(()=>{ [...box.querySelectorAll('.ast')].forEach(b=>b.remove()); st.asts=0; },15000); // ninguém fica preso
 }
+// Apagão: só a "lanterna" em volta do mouse/dedo fica iluminada
+function startDark(){
+  const w=$('work'), d=document.createElement('div'); d.className='darkness'; w.appendChild(d);
+  const mv=ev=>{ const r=w.getBoundingClientRect(); d.style.setProperty('--x',(ev.clientX-r.left)+'px'); d.style.setProperty('--y',(ev.clientY-r.top)+'px'); };
+  document.addEventListener('pointermove',mv); document.addEventListener('pointerdown',mv);
+  st.curseOff.push(()=>{ document.removeEventListener('pointermove',mv); document.removeEventListener('pointerdown',mv); d.remove(); });
+}
+// Turbulência: a nave sacode de tempos em tempos
+function startTurb(){
+  const w=$('work');
+  const shake=()=>{ w.classList.remove('shake'); void w.offsetWidth; w.classList.add('shake'); beep(70,.45,'sawtooth',0,.035); };
+  const t1=setTimeout(shake,1200), iv=setInterval(shake,3800+Math.random()*1400);
+  st.curseOff.push(()=>{ clearTimeout(t1); clearInterval(iv); w.classList.remove('shake'); });
+}
+// Poeira lunar: cobre a área da tarefa; passar o mouse (ou o dedo) limpa
+function startDust(){
+  const w=$('work'), W=w.clientWidth, H=w.clientHeight, dpr=window.devicePixelRatio||1;
+  const c=document.createElement('canvas'); c.className='dust'; c.width=Math.round(W*dpr); c.height=Math.round(H*dpr); c.style.width=W+'px'; c.style.height=H+'px';
+  w.appendChild(c);
+  const g=c.getContext('2d'); g.scale(dpr,dpr);
+  g.fillStyle='rgba(140,122,104,.97)'; g.fillRect(0,0,W,H);
+  for(let i=0;i<Math.round(W*H/1800);i++){ const r=rnd(115,180), gg=r-rnd(14,28), bb=gg-rnd(14,28); g.fillStyle='rgba('+r+','+gg+','+bb+','+(0.3+Math.random()*0.5).toFixed(2)+')'; g.beginPath(); g.arc(Math.random()*W,Math.random()*H,rnd(4,26),0,7); g.fill(); }
+  g.fillStyle='rgba(40,28,18,.7)'; g.font='bold 20px sans-serif'; g.textAlign='center';
+  g.fillText('Poeira no visor! Passe o mouse (ou o dedo) para limpar',W/2,Math.min(60,H/2));
+  g.globalCompositeOperation='destination-out'; g.lineCap='round'; g.lineWidth=60;
+  let lp=null;
+  const mv=ev=>{
+    const r=c.getBoundingClientRect(), x=ev.clientX-r.left, y=ev.clientY-r.top;
+    if(x<-40||y<-40||x>r.width+40||y>r.height+40){ lp=null; return; }
+    g.beginPath(); if(lp){ g.moveTo(lp.x,lp.y); g.lineTo(x,y); g.stroke(); } else { g.arc(x,y,30,0,7); g.fill(); }
+    lp={x,y};
+  };
+  document.addEventListener('pointermove',mv); document.addEventListener('pointerdown',mv);
+  st.curseOff.push(()=>{ document.removeEventListener('pointermove',mv); document.removeEventListener('pointerdown',mv); c.remove(); });
+}
+// Zorg sabotador: aparece e mexe em uma coisa da tarefa
+function scheduleZorg(){
+  let tries=0, t=null;
+  const attempt=()=>{
+    if(!st||st.locked||!widget||!widget.sabotage) return;
+    const w=$('work'), z=document.createElement('div'); z.className='zorg'; z.style.left=rnd(8,72)+'%';
+    z.innerHTML=useSvg('sv-zorg')+'<span>hehe!</span>'; w.appendChild(z);
+    t=setTimeout(()=>{
+      if(!st||st.locked) return;
+      if(widget.sabotage()){ $('hintMsg').textContent='O Zorg mexeu em alguma coisa! Confira antes de confirmar.'; alienLaugh(3); }
+      else if(++tries<3) t=setTimeout(attempt,3000);  // ainda não havia nada para bagunçar: volta depois
+    },750);
+    setTimeout(()=>z.remove(),1900);
+  };
+  t=setTimeout(attempt,5000+Math.random()*5000);
+  st.curseOff.push(()=>{ clearTimeout(t); [...$('work').querySelectorAll('.zorg')].forEach(z=>z.remove()); });
+}
 function applyCurses(){
-  st.asts=0;
+  st.asts=0; st.curseOff=[];
   const cs=pickCurses(); if(!cs.length) return cs;
-  const names=[];
-  if(cs.includes('fog')){ $('qcard').classList.add('fog'); names.push('Tempestade solar'); }
-  if(cs.includes('ast')){ spawnAsteroids(st.idx<10?3:4); names.push('Asteroides'); }
-  $('curseTag').textContent='Perigo: '+names.join(' + '); $('curseTag').hidden=false;
+  cs.forEach(c=>{
+    if(c==='fog') $('qcard').classList.add('fog');
+    if(c==='ast'){ $('work').classList.add('clip'); spawnAsteroids(st.idx<10?3:4); }
+    if(c==='dark') startDark();
+    if(c==='turb') startTurb();
+    if(c==='dust') startDust();
+    if(c==='inv') widget.invert();
+    if(c==='zorg'){ $('work').classList.add('clip'); scheduleZorg(); }
+  });
+  $('curseTag').textContent='Perigo: '+cs.map(c=>CURSE_NAME[c]).join(' + '); $('curseTag').hidden=false;
+  if(cs.includes('inv')) $('hintMsg').textContent='Controles invertidos! Os botões fazem o contrário do que mostram.';
   return cs;
 }
 
