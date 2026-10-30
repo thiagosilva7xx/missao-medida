@@ -250,7 +250,7 @@ table.cmp tr.lead td{color:var(--good);font-weight:700;font-size:1.15rem}
 .ast{position:absolute;z-index:20;width:66px;height:66px;cursor:crosshair;animation:astm var(--dur,9s) linear infinite alternate;touch-action:none}
 .ast .w{width:100%;height:100%;animation:wob 1.3s ease-in-out infinite alternate}
 .ast svg{width:100%;height:100%;display:block;animation:spin 4s linear infinite;filter:drop-shadow(0 0 6px rgba(255,159,67,.6))}
-@keyframes astm{from{left:-70px}to{left:calc(100% + 4px)}}
+@keyframes astm{from{left:0}to{left:calc(100% - 66px)}}
 @keyframes wob{from{transform:translateY(-14px)}to{transform:translateY(14px)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes boom{to{transform:scale(1.8);opacity:0}}
@@ -1232,63 +1232,90 @@ const toScale=(c,s)=>s==='K'?c+273:(s==='F'?1.8*c+32:c);
 const fromScale=(v,s)=>s==='K'?v-273:(s==='F'?(v-32)/1.8:v);
 const SC_NAME={C:'°C',K:'K',F:'°F'};
 function wThermo(work,spec){
-  const sc=spec.scale, Cmin=-100, Cmax=120;
-  const svg=S('svg',{viewBox:'0 0 460 470',style:'max-width:400px;margin:0 auto;touch-action:none'}); work.appendChild(svg);
-  const yT=30, yB=410, H=yB-yT, tx=200;
+  const sc=spec.scale, Cmin=spec.range?spec.range[0]:-100, Cmax=spec.range?spec.range[1]:120;
+  const svg=S('svg',{viewBox:'0 0 460 480',style:'max-width:400px;margin:0 auto;touch-action:none'}); work.appendChild(svg);
+  const yT=42, yB=420, H=yB-yT, tx=200;
   const yOfC=c=>yB-(c-Cmin)/(Cmax-Cmin)*H;
   S('rect',{x:tx-18,y:yT-14,width:36,height:H+24,rx:18,fill:'#eaf2ff',opacity:.12,stroke:'#eaf2ff','stroke-width':2},svg);
   S('circle',{cx:tx,cy:yB+30,r:30,fill:'#ff6b7a',stroke:'#eaf2ff','stroke-width':3},svg);
   const liq=S('rect',{x:tx-9,width:18,rx:9,fill:'#ff6b7a'},svg);
-  // escala visível
-  const vmin=toScale(Cmin,sc), vmax=toScale(Cmax,sc);
-  const big=sc==='F'?50:(sc==='K'?50:20), small=10;
+  // escala visível: termômetro "de perto" tem tracinhos de 1 em 1 grau
+  const vmin=toScale(Cmin,sc), vmax=toScale(Cmax,sc), perto=(vmax-vmin)<=110;
+  const small=perto?1:10, mid=perto?5:0, big=perto?10:(sc==='F'?50:(sc==='K'?50:20));
   const g=S('g',{},svg);
   for(let v=Math.ceil(vmin/small)*small; v<=vmax; v+=small){
-    const y=yOfC(fromScale(v,sc)), isBig=(v%big===0);
-    S('line',{x1:tx+22,y1:y,x2:tx+(isBig?50:36),y2:y,stroke:'#eaf2ff','stroke-width':isBig?2.5:1.2},g);
-    if(isBig){ const t=S('text',{x:tx+56,y:y+6,'font-size':19,'font-weight':700,fill:'#eaf2ff'},g); t.textContent=fmt(v); }
+    const y=yOfC(fromScale(v,sc)), isBig=(v%big===0), isMid=mid&&(v%mid===0);
+    S('line',{x1:tx+22,y1:y,x2:tx+(isBig?52:(isMid?42:(perto?32:36))),y2:y,stroke:v===0&&perto?'#4dd8e8':'#eaf2ff','stroke-width':isBig?2.5:(isMid?1.8:1)},g);
+    if(isBig){ const t=S('text',{x:tx+58,y:y+6,'font-size':19,'font-weight':700,fill:v===0&&perto?'#4dd8e8':'#eaf2ff'},g); t.textContent=fmt(v); }
   }
   S('text',{x:tx+56,y:yT-18,'font-size':18,'font-weight':700,fill:'#4dd8e8'},svg).textContent='Escala '+SC_NAME[sc];
   if(spec.showRef){
     [[0,'gelo derrete'],[100,'água ferve']].forEach(([c,t])=>{
+      if(c<Cmin||c>Cmax) return;
       const y=yOfC(c);
       S('line',{x1:tx-80,y1:y,x2:tx-20,y2:y,stroke:'#a98bff','stroke-width':2,'stroke-dasharray':'5 4'},svg);
       const tt=S('text',{x:tx-84,y:y-6,'text-anchor':'end','font-size':16,fill:'#a98bff'},svg); tt.textContent=t;
       const tv=S('text',{x:tx-84,y:y+14,'text-anchor':'end','font-size':18,'font-weight':700,fill:'#a98bff'},svg); tv.textContent=fmt(toScale(c,sc))+' '+SC_NAME[sc];
     });
   }
-  const hit=S('rect',{x:tx-40,y:yT-14,width:140,height:H+28,fill:'transparent',style:'cursor:ns-resize'},svg);
-  const read=document.createElement('div'); read.style.cssText='text-align:center;font-size:1.25rem;font-weight:700;color:var(--acc2);margin:4px 0';
+  const read=document.createElement('div'); read.style.cssText='text-align:center;font-size:1.25rem;font-weight:700;color:var(--acc2);margin:4px 0;min-height:1.4em';
   work.appendChild(read);
-  const tools=document.createElement('div'); tools.className='tools';
-  tools.innerHTML='<button type="button" class="btn sec">▼ esfriar</button><button type="button" class="btn sec">▲ esquentar</button>';
-  work.appendChild(tools);
-  const [dn,up]=tools.querySelectorAll('button');
-  let v=Math.round(toScale(spec.startC!==undefined?spec.startC:20,sc)), locked=false, drag=null;
-  if(Math.abs(v-spec.target)<=spec.tol+4){ const alt=spec.target+(spec.target-vmin>vmax-spec.target?-45:45); v=Math.round(alt); } // nunca começa já na resposta
+  const clampV=x=>Math.max(Math.ceil(vmin),Math.min(Math.floor(vmax),x));
+  let v=Math.round(toScale(spec.startC!==undefined?spec.startC:20,sc)), locked=!!spec.readOnly, drag=null, inv=1;
+  if(spec.readOnly) v=spec.target;
+  else if(spec.keepStart){ if(Math.abs(v-spec.target)<=spec.tol) v+=spec.target>vmin+5?-6:6; }
+  else if(Math.abs(v-spec.target)<=spec.tol+4||v<=vmin||v>=vmax){ // nunca começa já na resposta (nem colado na ponta)
+    const d=perto?rnd(9,14):45, op=[spec.target-d,spec.target+d].filter(x=>x>vmin+1&&x<vmax-1);
+    v=Math.round(op.length?pick(op):spec.target+(spec.target-vmin>vmax-spec.target?-d:d));
+  }
+  v=clampV(v);
   function draw(){
     const c=fromScale(v,sc), y=yOfC(Math.max(Cmin,Math.min(Cmax,c)));
     liq.setAttribute('y',y); liq.setAttribute('height',yB+26-y);
-    read.textContent='Leitura: '+fmt(v)+' '+SC_NAME[sc];
+    read.textContent=(spec.hideReading||spec.readOnly)?'':'Leitura: '+fmt(v)+' '+SC_NAME[sc];
   }
-  const clampV=x=>Math.max(Math.ceil(vmin),Math.min(Math.floor(vmax),x));
-  function setY(ev){ const p=svgPoint(svg,ev); const c=Cmin+(yB-p.y)/H*(Cmax-Cmin); v=clampV(Math.round(toScale(c,sc))); draw(); }
-  hit.addEventListener('pointerdown',ev=>{ if(locked) return; ev.preventDefault(); drag=ev.pointerId; try{ hit.setPointerCapture(ev.pointerId); }catch(e){} setY(ev); });
-  hit.addEventListener('pointermove',ev=>{ if(drag!==ev.pointerId) return; setY(ev); });
-  const end=()=>{ drag=null; }; hit.addEventListener('pointerup',end); hit.addEventListener('pointercancel',end);
-  let inv=1;
-  holdRepeat(up,()=>{ if(locked) return; v=clampV(v+inv); draw(); sfx.tick(); });
-  holdRepeat(dn,()=>{ if(locked) return; v=clampV(v-inv); draw(); sfx.tick(); });
+  let up=null, dn=null;
+  if(!spec.readOnly){
+    const hit=S('rect',{x:tx-40,y:yT-14,width:140,height:H+28,fill:'transparent',style:'cursor:ns-resize'},svg);
+    const tools=document.createElement('div'); tools.className='tools';
+    tools.innerHTML='<button type="button" class="btn sec">▼ esfriar</button><button type="button" class="btn sec">▲ esquentar</button>';
+    work.appendChild(tools);
+    [dn,up]=tools.querySelectorAll('button');
+    const setY=ev=>{ const p=svgPoint(svg,ev); const c=Cmin+(yB-p.y)/H*(Cmax-Cmin); v=clampV(Math.round(toScale(c,sc))); draw(); };
+    hit.addEventListener('pointerdown',ev=>{ if(locked) return; ev.preventDefault(); drag=ev.pointerId; try{ hit.setPointerCapture(ev.pointerId); }catch(e){} setY(ev); });
+    hit.addEventListener('pointermove',ev=>{ if(drag!==ev.pointerId) return; setY(ev); });
+    const end=()=>{ drag=null; }; hit.addEventListener('pointerup',end); hit.addEventListener('pointercancel',end);
+    holdRepeat(up,()=>{ if(locked) return; v=clampV(v+inv); draw(); sfx.tick(); });
+    holdRepeat(dn,()=>{ if(locked) return; v=clampV(v-inv); draw(); sfx.tick(); });
+  }
   draw();
   return {
     _spec:spec,
     ready(){ return true; },
     check(){ return Math.abs(v-spec.target)<=spec.tol; },
-    lock(){ locked=true; up.disabled=dn.disabled=true; const c=fromScale(v,sc); read.textContent='Leitura: '+fmt(v)+' '+SC_NAME[sc]+'  =  '+fmt(c,1)+' °C  =  '+fmt(c+273,1)+' K  =  '+fmt(1.8*c+32,1)+' °F'; },
+    lock(){ locked=true; if(up){ up.disabled=dn.disabled=true; } read.textContent='Leitura: '+fmt(v)+' '+SC_NAME[sc]; },
     solve(){ v=spec.target; draw(); },
     value(){ return v; },
     invert(){ inv=-1; },
-    sabotage(){ if(locked||drag!==null) return false; v=clampV(v+pick([-1,1])*rnd(6,14)); draw(); return true; },
+    sabotage(){ if(locked||drag!==null) return false; v=clampV(v+pick([-1,1])*rnd(4,9)); draw(); return true; },
+    destroy(){}
+  };
+}
+// ler o termômetro e marcar a temperatura nos mostradores
+function wThermoRead(work,spec){
+  const th=wThermo(work,{scale:'C',target:spec.target,tol:0,range:spec.range,readOnly:true});
+  const lab=document.createElement('div'); lab.className='note'; lab.style.cssText='text-align:center;margin:6px 0';
+  lab.textContent='Qual temperatura o termômetro está marcando? (para temperaturas abaixo de zero, use números negativos)'; work.appendChild(lab);
+  const d=wDials(work,{fields:[{key:'t',label:'temperatura',min:spec.range[0],max:spec.range[1],sfx:'°C'}],isOk:x=>x.t===spec.target,answer:{t:spec.target}});
+  return {
+    _spec:spec,
+    ready(){ return d.vals.t!==0?true:'Marque a temperatura nos mostradores.'; },
+    check(){ return d.check(); },
+    lock(ok){ d.lock(ok); th.lock(); },
+    solve(){ d.solve(); },
+    value(){ return d.vals.t; },
+    invert(){ d.invert(); },
+    sabotage(){ return d.sabotage(); },
     destroy(){}
   };
 }
@@ -1301,7 +1328,7 @@ const PHASES=[
   {name:'Laboratório da Nave', icon:'sv-pl1', desc:'Grandezas, instrumentos de medida, unidades padronizadas e o copo medidor.'},
   {name:'Sala de Navegação', icon:'sv-pl2', desc:'Metro, múltiplos e submúltiplos, a régua e as unidades antigas (pé, polegada, jarda).'},
   {name:'Base Lunar', icon:'sv-pl3', desc:'Perímetro: construa cercas, amplie a base e acompanhe o drone.'},
-  {name:'Controle da Missão', icon:'sv-pl4', desc:'Horas, minutos e segundos, calendário e as escalas Celsius, Kelvin e Fahrenheit.'}
+  {name:'Controle da Missão', icon:'sv-pl4', desc:'Horas, minutos e segundos, calendário, leitura do termômetro e as escalas Celsius, Kelvin e Fahrenheit.'}
 ];
 const bigS=s=>'<span class="big">'+s+'</span>';
 
@@ -1645,42 +1672,70 @@ function tCalendario(){
     mount:w=>wDials(w,{fields:[{key:'d',label:'dias',min:0,max:99,sfx:'dias'}],isOk:x=>x.d===7*s,answer:{d:7*s}}),
     explain:()=>'1 semana = 7 dias: '+s+' × 7 = <b>'+(7*s)+' dias</b>.'};
 }
-const TEMP_C=[['na superfície de Marte (média)',-63],['no Polo Sul da Terra, no inverno',-89],['no freezer das amostras',-18],['no interior da nave',22],['do corpo humano',37],['no deserto do Saara',50],['da água fervendo',100],['do gelo derretendo',0],['na geladeira da cozinha espacial',5],['na sauna da estação',80]];
-function tTermoK(){
-  const [onde,c]=pick(TEMP_C);
-  if(Math.random()<.55){
-    return {gen:'termok', title:'Celsius → Kelvin',
-      prompt:'Os sensores da nave só leem <b>kelvin</b>. A temperatura '+onde+' é '+bigS(fmt(c)+' °C')+'. Ajuste o termômetro em kelvin.',
-      mount:w=>wThermo(w,{scale:'K',target:c+273,tol:2,showRef:true}),
-      explain:()=>'<b>K = °C + 273</b>: '+fmt(c)+' + 273 = <b>'+(c+273)+' K</b>. Na escala Kelvin não existem números negativos no nosso dia a dia.'};
+// Temperatura no 6º ano: ler e ajustar o termômetro, variações e as três escalas (sem conversão entre escalas)
+const TERMO_LUGARES=[['da estufa de plantas',[13,17,22,26,31]],['do interior da nave',[18,21,23,25]],['do corpo do astronauta',[36,37,38,39]],['do freezer das amostras',[-18,-15,-12,-7]],
+  ['da geladeira da cozinha espacial',[3,4,6,7]],['do lado de fora da base lunar',[-27,-23,-16,-9]],['da água do chuveiro',[34,38,41,44]],['do motor desligado',[8,12,16,19]]];
+// termômetro "de perto": janela de 40 a 50 graus em volta das temperaturas da tarefa, tracinhos de 1 em 1 grau
+function faixa(){ const v=[...arguments]; let lo=Math.floor((Math.min(...v)-6)/10)*10, hi=Math.ceil((Math.max(...v)+6)/10)*10; if(hi-lo<40) hi=lo+40; return [lo,hi]; }
+const grausTxt=c=>c<0?fmt(c)+' °C ('+Math.abs(c)+' graus abaixo de zero)':fmt(c)+' °C';
+function tTermoLer(){
+  const r=Math.random(), hard=HARD();
+  if(r<0.38){ // ler
+    const [onde,vals]=pick(TERMO_LUGARES), t=pick(vals);
+    return {gen:'termoler', title:'Leitura do termômetro',
+      prompt:'Qual é a temperatura '+onde+'? Leia o termômetro com atenção: <b>cada tracinho vale 1 °C</b>.',
+      mount:w=>wThermoRead(w,{target:t,range:faixa(t,t+rnd(-12,12))}),
+      explain:(ok,w)=>'O líquido para na marca de <b>'+grausTxt(t)+'</b>. Os números aparecem de 10 em 10 e cada tracinho pequeno vale 1 grau'+(t<0?'; abaixo do 0, contamos para baixo':'')+'.'+(ok?'':' Você marcou '+fmt(w.value())+' °C.')};
   }
-  return {gen:'termok', title:'Kelvin → Celsius',
-    prompt:'O sensor que mede a temperatura '+onde+' marcou '+bigS((c+273)+' K')+'. Quanto é isso em <b>graus Celsius</b>? Ajuste o termômetro em °C.',
-    mount:w=>wThermo(w,{scale:'C',target:c,tol:2,showRef:true}),
-    explain:()=>'<b>°C = K − 273</b>: '+(c+273)+' − 273 = <b>'+fmt(c)+' °C</b>.'};
+  if(r<0.66){ // ajustar (sem mostrar a leitura)
+    const [onde,vals]=pick(TERMO_LUGARES), t=pick(vals);
+    return {gen:'termoajuste', title:'Ajuste o termômetro',
+      prompt:'O sensor '+onde.replace(/^d[oa] /,m=>m==='do '?'do ':'da ')+' marcou '+bigS(fmt(t)+' °C')+'. Ajuste o termômetro até essa marca (arraste o líquido ou use os botões).',
+      mount:w=>wThermo(w,{scale:'C',target:t,tol:0,range:faixa(t,t+rnd(-12,12)),hideReading:true}),
+      explain:(ok,w)=>'A marca certa é <b>'+grausTxt(t)+'</b>.'+(ok?'':' O seu termômetro ficou em '+fmt(w.value())+' °C.')+' Dica: ache primeiro o número de 10 em 10 mais próximo e depois conte os tracinhos.'};
+  }
+  // variação de temperatura
+  let ini,dv,sobe;
+  if(hard){ sobe=Math.random()<.4; ini=sobe?rnd(-15,-6):rnd(3,9); dv=sobe?rnd(10,18):rnd(ini+3,ini+12); }
+  else { sobe=Math.random()<.5; ini=sobe?rnd(8,25):rnd(20,40); dv=rnd(6,14); }
+  const fim=sobe?ini+dv:ini-dv;
+  const ctx=pick([['A estufa estava a ','esquentou','esfriou'],['A cabine estava a ','esquentou','esfriou'],['A água do tanque estava a ','esquentou','esfriou'],['Lá fora estava ','esquentou','esfriou']]);
+  return {gen:'termovar', title:hard?'Variação de temperatura (nível difícil)':'Variação de temperatura',
+    prompt:ctx[0]+'<b>'+fmt(ini)+' °C</b> e '+(sobe?ctx[1]:ctx[2])+' '+bigS(dv+' °C')+'. Ajuste o termômetro para a <b>nova temperatura</b>.',
+    mount:w=>wThermo(w,{scale:'C',target:fim,tol:0,range:faixa(ini,fim),hideReading:true,startC:ini,keepStart:true}),
+    explain:(ok,w)=>(sobe?'Esquentar é somar':'Esfriar é subtrair')+': '+fmt(ini)+(sobe?' + ':' − ')+dv+' = <b>'+fmt(fim)+' °C</b>.'+(fim<0&&ini>=0?' Passou do zero e ficou abaixo dele!':'')+(fim>=0&&ini<0?' Subiu, passou do zero e ficou acima dele!':'')+(ok?'':' O seu termômetro ficou em '+fmt(w.value())+' °C.')};
 }
-function tTermoF(){
+const ESCALA_FATOS={
+  C:['Escala usada no Brasil','A água congela a 0 grau','A água ferve a 100 graus','É a da previsão do tempo na TV brasileira','Seu símbolo é °C'],
+  F:['Escala usada nos Estados Unidos','A água congela a 32 graus','A água ferve a 212 graus','Seu símbolo é °F'],
+  K:['Escala do Sistema Internacional (SI)','A água congela a 273','A água ferve a 373','Não se diz "grau", só kelvin','Seu símbolo é K']
+};
+const TEMP_LISTA=[['Marte, de noite',-73],['freezer',-18],['Polo Sul',-50],['geladeira',5],['estufa',28],['corpo humano',37],['água do chuveiro',40],['interior da nave',22],['sala de aula',26],['picolé',-10],['gelo derretendo',0],['café quente',70]];
+function tTermoEscalas(){
   const r=Math.random();
-  if(HARD()&&r<.5){ const c=pick([12,18,22,28,33,37,-18,15,8]), fe=1.8*c+32, f=Math.round(fe);
-    return {gen:'termof', title:'Celsius → Fahrenheit (nível difícil)',
-      prompt:'O computador de bordo pede a temperatura em <b>Fahrenheit</b>. O sensor marcou '+bigS(fmt(c)+' °C')+'. Ajuste o termômetro em °F (vale arredondar).',
-      mount:w=>wThermo(w,{scale:'F',target:f,tol:2,showRef:true}),
-      explain:()=>'<b>°F = 1,8 × °C + 32</b>: 1,8 × '+fmt(c)+' + 32 = <b>'+fmt(fe,1)+' °F</b> (cerca de '+f+' °F).'}; }
-  if(r<.4){ const c=pick([-40,-10,0,10,20,25,30,35,40,100]), f=Math.round(1.8*c+32);
-    return {gen:'termof', title:'Celsius → Fahrenheit',
-      prompt:'A nave vai pousar nos Estados Unidos, onde usam <b>Fahrenheit</b>. Lá fora está '+bigS(fmt(c)+' °C')+'. Ajuste o termômetro em °F.',
-      mount:w=>wThermo(w,{scale:'F',target:f,tol:2,showRef:true}),
-      explain:()=>'<b>°F = 1,8 × °C + 32</b>: 1,8 × '+fmt(c)+' + 32 = <b>'+fmt(f)+' °F</b>.'}; }
-  if(r<.75){ const f=pick([-40,14,32,50,68,86,104,212]), c=Math.round((f-32)/1.8);
-    return {gen:'termof', title:'Fahrenheit → Celsius',
-      prompt:'Uma mensagem dos Estados Unidos diz que lá faz '+bigS(fmt(f)+' °F')+'. Quanto é isso em <b>graus Celsius</b>? Ajuste o termômetro em °C.',
-      mount:w=>wThermo(w,{scale:'C',target:c,tol:2,showRef:true}),
-      explain:()=>'<b>°C = (°F − 32) ÷ 1,8</b>: ('+fmt(f)+' − 32) ÷ 1,8 = <b>'+fmt(c)+' °C</b>.'}; }
-  const p=pick([['ebulição','a água ferve','F',212],['fusão','o gelo derrete','F',32],['ebulição','a água ferve','K',373],['fusão','o gelo derrete','K',273],['ebulição','a água ferve','C',100]]);
-  return {gen:'termof', title:'Pontos da água',
-    prompt:'Ajuste o termômetro para o <b>ponto de '+p[0]+' da água</b> (quando '+p[1]+') na escala '+SC_NAME[p[2]]+'.',
-    mount:w=>wThermo(w,{scale:p[2],target:p[3],tol:p[2]==='F'?2:1,showRef:false}),
-    explain:()=>'A água derrete a <b>0 °C = 273 K = 32 °F</b> e ferve a <b>100 °C = 373 K = 212 °F</b>.'};
+  if(r<0.4){ // fatos de cada escala
+    const ks=['C','F','K'], nomes={C:'Celsius',F:'Fahrenheit',K:'Kelvin'}, fatos=[];
+    ks.forEach(k=>shuffle(ESCALA_FATOS[k]).slice(0,2).forEach((f,j)=>fatos.push({id:k+j,label:f,zone:k})));
+    return {gen:'escalas', title:'As três escalas',
+      prompt:'Existem três escalas de temperatura. Arraste cada informação para a escala certa.',
+      mount:w=>wDnD(w,{cap:'many',zones:ks.map(k=>({id:k,label:nomes[k]})),tokens:fatos,trayFirst:true}),
+      explain:()=>'<b>Celsius (°C)</b>: usada no Brasil; a água congela a 0 e ferve a 100. <b>Fahrenheit (°F)</b>: usada nos EUA; congela a 32 e ferve a 212. <b>Kelvin (K)</b>: do SI; congela a 273 e ferve a 373.'};
+  }
+  if(r<0.7){ // do mais frio ao mais quente
+    let it; do{ it=shuffle(TEMP_LISTA).slice(0,4); }while(new Set(it.map(x=>x[1])).size<4);
+    const ord=it.slice().sort((a,b)=>a[1]-b[1]);
+    const lugares=['1º · mais frio','2º','3º','4º · mais quente'];
+    return {gen:'ordenar', title:'Do mais frio ao mais quente',
+      prompt:'Arraste as temperaturas para colocá-las em ordem, <b>da mais fria para a mais quente</b>.',
+      mount:w=>wDnD(w,{zones:lugares.map((l,k)=>({id:'p'+k,label:l})),tokens:ord.map((x,k)=>({id:'o'+k,label:x[0]+': '+fmt(x[1])+' °C',zone:'p'+k}))}),
+      explain:()=>'Em ordem: '+ord.map(x=>fmt(x[1])+' °C').join(' < ')+'. Abaixo de zero, quanto maior o número depois do sinal de menos, <b>mais frio</b>: −18 °C é mais frio que −10 °C.'};
+  }
+  // pontos da água em cada escala (sem conversão: são fatos da escala)
+  const p=pick([['ebulição','a água ferve','C',100],['fusão','o gelo derrete','C',0],['ebulição','a água ferve','F',212],['fusão','o gelo derrete','F',32],['ebulição','a água ferve','K',373],['fusão','o gelo derrete','K',273]]);
+  return {gen:'pontos', title:'Pontos da água',
+    prompt:'Ajuste o termômetro para o <b>ponto de '+p[0]+' da água</b> (quando '+p[1]+') na escala <b>'+({C:'Celsius',F:'Fahrenheit',K:'Kelvin'})[p[2]]+'</b>.',
+    mount:w=>wThermo(w,{scale:p[2],target:p[3],tol:p[2]==='C'?1:2,showRef:false}),
+    explain:()=>'A água derrete a <b>0 °C</b>, <b>32 °F</b> ou <b>273 K</b>, e ferve a <b>100 °C</b>, <b>212 °F</b> ou <b>373 K</b>. Cada escala tem os seus números para os mesmos pontos.'};
 }
 
 /* ---------- montagem das missões ---------- */
@@ -1688,7 +1743,7 @@ const MOD_GENS=[
   [tInstrumentos,tGrandeza,tPalmos,tCopo,tSI],
   [tVirgula,tRegua,tAntigas,tAdequada,tVirgula],
   [tDrone,tConstruir,tRetPerim,tAmpliar,tDrone],
-  [tHorasDec,tResto,tCalendario,tTermoK,tTermoF]
+  [tHorasDec,tResto,tCalendario,tTermoLer,tTermoEscalas]
 ];
 function mk(gen,mod){ const t=gen(); t.mod=mod; return t; }
 function buildCampaign(){ const all=[]; MOD_GENS.forEach((gs,m)=>gs.forEach((g,k)=>{ const t=mk(g,m); t.first=(k===0); all.push(t); })); return all; }
